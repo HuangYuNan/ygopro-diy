@@ -31,44 +31,44 @@ function c999999783.initial_effect(c)
 	e3:SetCost(c999999783.cost)
 	e3:SetOperation(c999999783.spop)
 	c:RegisterEffect(e3)
-    --这张卡同调召唤成功的回合结束时才能发动。从卡组把1张「虹纹」卡从游戏中除外。
-    local e4=Effect.CreateEffect(c)
-    e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
-    e4:SetCode(EVENT_SPSUMMON_SUCCESS)
-    e4:SetCondition(c999999783.spcon)
-    e4:SetOperation(c999999783.regop)
-    c:RegisterEffect(e4)
+	--这张卡同调召唤成功的回合结束时才能发动。从卡组把1张「虹纹」卡从游戏中除外。
+	local e4=Effect.CreateEffect(c)
+	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
+	e4:SetCode(EVENT_SPSUMMON_SUCCESS)
+	e4:SetCondition(c999999783.spcon)
+	e4:SetOperation(c999999783.regop)
+	c:RegisterEffect(e4)
 end
 function c999999783.spcon(e,tp,eg,ep,ev,re,r,rp)
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SYNCHRO
+	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SYNCHRO
 end
 function c999999783.regop(e,tp,eg,ep,ev,re,r,rp)
-    local c=e:GetHandler()
-    local e1=Effect.CreateEffect(c)
-    e1:SetDescription(aux.Stringid(999999783,1))
-    e1:SetCategory(CATEGORY_REMOVE)
-    e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
-    e1:SetRange(LOCATION_MZONE)
+	local c=e:GetHandler()
+	local e1=Effect.CreateEffect(c)
+	e1:SetDescription(aux.Stringid(999999783,1))
+	e1:SetCategory(CATEGORY_REMOVE)
+	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
+	e1:SetRange(LOCATION_MZONE)
 	e1:SetCountLimit(1)
-    e1:SetCode(EVENT_PHASE+PHASE_END)
-    e1:SetTarget(c999999783.target)
-    e1:SetOperation(c999999783.retop)
-    e1:SetReset(RESET_EVENT+0x1ee0000+RESET_PHASE+PHASE_END)
-    c:RegisterEffect(e1)
+	e1:SetCode(EVENT_PHASE+PHASE_END)
+	e1:SetTarget(c999999783.target)
+	e1:SetOperation(c999999783.retop)
+	e1:SetReset(RESET_EVENT+0x1ee0000+RESET_PHASE+PHASE_END)
+	c:RegisterEffect(e1)
 end
 function c999999783.tgfilter(c)
-    return c:IsSetCard(0xf70) and c:IsAbleToRemove()
+	return c:IsSetCard(0xf70) and c:IsAbleToRemove()
 end
 function c999999783.target(e,tp,eg,ep,ev,re,r,rp,chk)
-    if chk==0 then return Duel.IsExistingMatchingCard(c999999783.tgfilter,tp,LOCATION_DECK,0,1,nil) end
-    Duel.SetOperationInfo(0,CATEGORY_REMOVE,nil,1,tp,LOCATION_DECK)
+	if chk==0 then return Duel.IsExistingMatchingCard(c999999783.tgfilter,tp,LOCATION_DECK,0,1,nil) end
+	Duel.SetOperationInfo(0,CATEGORY_REMOVE,nil,1,tp,LOCATION_DECK)
 end
 function c999999783.retop(e,tp,eg,ep,ev,re,r,rp)
-    Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-    local g=Duel.SelectMatchingCard(tp,c999999783.tgfilter,tp,LOCATION_DECK,0,1,1,nil)
-    if g:GetCount()>0 then
-        Duel.Remove(g,POS_FACEUP,REASON_EFFECT)
-    end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
+	local g=Duel.SelectMatchingCard(tp,c999999783.tgfilter,tp,LOCATION_DECK,0,1,1,nil)
+	if g:GetCount()>0 then
+		Duel.Remove(g,POS_FACEUP,REASON_EFFECT)
+	end
 end
 function c999999783.atkfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0xf70)
@@ -94,7 +94,7 @@ end
 function c999999783.tdtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c999999783.tdfilter,tp,0,LOCATION_ONFIELD,1,nil) end
 	local g=Duel.GetMatchingGroup(c999999783.tdfilter,tp,0,LOCATION_ONFIELD,nil)
-	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
+	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,1,0,0)
 end
 function c999999783.tdop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)

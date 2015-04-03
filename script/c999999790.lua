@@ -6,7 +6,6 @@ function c999999790.initial_effect(c)
 	e1:SetCategory(CATEGORY_REMOVE)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_SUMMON_SUCCESS)
-	e1:SetCountLimit(1,999999790)
 	e1:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
 	e1:SetTarget(c999999790.target)
 	e1:SetOperation(c999999790.operation)
@@ -20,24 +19,24 @@ function c999999790.initial_effect(c)
 	e3:SetCategory(CATEGORY_REMOVE)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e3:SetCode(EVENT_SPSUMMON_SUCCESS)
-	e3:SetCountLimit(1,999999790)
+	e3:SetCountLimit(1)
 	e3:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
 	e3:SetCost(c999999790.cost)
 	e3:SetTarget(c999999790.target)
 	e3:SetOperation(c999999790.operation)
 	c:RegisterEffect(e3)
-     --自己场上有这张卡以外的「虹纹」怪兽存在的场合，这张卡当做调整使用。
+	 --自己场上有这张卡以外的「虹纹」怪兽存在的场合，这张卡当做调整使用。
 	 local e4=Effect.CreateEffect(c)
-    e4:SetType(EFFECT_TYPE_SINGLE)
-    e4:SetCode(EFFECT_CHANGE_TYPE)
-    e4:SetProperty(EFFECT_FLAG_SINGLE_RANGE+EFFECT_FLAG_PLAYER_TARGET)
-    e4:SetRange(LOCATION_MZONE)
-    e4:SetValue(c999999790.change)
-    c:RegisterEffect(e4)
+	e4:SetType(EFFECT_TYPE_SINGLE)
+	e4:SetCode(EFFECT_CHANGE_TYPE)
+	e4:SetProperty(EFFECT_FLAG_SINGLE_RANGE+EFFECT_FLAG_PLAYER_TARGET)
+	e4:SetRange(LOCATION_MZONE)
+	e4:SetValue(c999999790.change)
+	c:RegisterEffect(e4)
 end
 function c999999790.change(e,c)
-    if c:IsFaceup() and not c:IsSetCard(0xf70) then return TYPE_MONSTER
-    else return TYPE_MONSTER+TYPE_TUNER end
+	if c:IsFaceup() and not c:IsSetCard(0xf70) then return TYPE_MONSTER
+	else return TYPE_MONSTER+TYPE_TUNER end
 end
 function c999999790.cffilter(c)
 	return c:IsSetCard(0xf70) and not c:IsPublic()

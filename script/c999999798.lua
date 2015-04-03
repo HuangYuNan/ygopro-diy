@@ -2,22 +2,22 @@
 function c999999798.initial_effect(c)
 	--①
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(698785,0))
+	e1:SetDescription(aux.Stringid(100069,5))
 	e1:SetCategory(CATEGORY_REMOVE)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
 	e1:SetCode(EVENT_REMOVE)
-	e1:SetCountLimit(1,999999789)
+	e1:SetCountLimit(1,798)
 	e1:SetTarget(c999999798.rmtg)
 	e1:SetOperation(c999999798.rmop)
 	c:RegisterEffect(e1)
 	--②
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(2273734,0))
+	e2:SetDescription(aux.Stringid(100069,7))
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_HANDES)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
-	e1:SetCountLimit(1,999999789)
+	e2:SetCountLimit(1,798)
 	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
 	e2:SetTarget(c999999798.sptg)
 	e2:SetOperation(c999999798.spop)
@@ -57,9 +57,9 @@ function c999999798.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.RegisterFlagEffect(tp,999999798,RESET_PHASE+PHASE_END,EFFECT_FLAG_OATH,1)
 end
 function c999999798.spop(e,tp,eg,ep,ev,re,r,rp)
-    local c=e:GetHandler()
-    local tc=Duel.GetFirstTarget()
-    if tc:IsRelateToEffect(e) and Duel.SpecialSummonStep(tc,0,tp,tp,false,false,POS_FACEUP_DEFENCE) then
+	local c=e:GetHandler()
+	local tc=Duel.GetFirstTarget()
+	if tc:IsRelateToEffect(e) and Duel.SpecialSummonStep(tc,0,tp,tp,false,false,POS_FACEUP_DEFENCE) then
 	--unsynchroable
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -74,13 +74,13 @@ function c999999798.spop(e,tp,eg,ep,ev,re,r,rp)
 	e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 	e2:SetValue(c999999798.splimit)
 	tc:RegisterEffect(e2)
-    Duel.SpecialSummonComplete()
-    end
+	Duel.SpecialSummonComplete()
+	end
 		Duel.BreakEffect()
 		Duel.DiscardHand(tp,Card.IsDiscardable,1,1,REASON_EFFECT+REASON_DISCARD,nil)
 end
 function c999999798.splimit(e,c)
-    if not c then return false end
+	if not c then return false end
 	return not c:IsSetCard(0xf70)
 end
 
